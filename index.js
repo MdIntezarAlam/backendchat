@@ -3,6 +3,7 @@ const app = express();
 import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
+import dotenv from "dotenv";
 
 app.use(cors());
 
@@ -10,7 +11,7 @@ const server = http.createServer(app);
 
 const isProduction = process.env.NODE_ENV === "production";
 const socketIoOrigin = isProduction
-  ? "https://your-vercel-app-url" // Replace with your Vercel app URL
+  ? process.env.SOCKET_IO_URL
   : "http://localhost:3000"; // Use your development URL
 
 const io = new Server(server, {
