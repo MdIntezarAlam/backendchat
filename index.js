@@ -3,7 +3,7 @@ const app = express();
 import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
-import dotenv from "dotenv";
+require("dotenv").config();
 
 app.use(cors());
 
