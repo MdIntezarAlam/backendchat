@@ -2,14 +2,17 @@
   "version": 2,
   "builds": [
     {
-      "src": "./index.js",
+      "src": "backend/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/"
+      "src": "/socket.io",
+      "dest": "backend/index.js"
     }
-  ]
+  ],
+  "env": {
+    "SOCKET_IO_URL": "@socket.io.url"
+  }
 }

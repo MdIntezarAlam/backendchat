@@ -8,9 +8,14 @@ app.use(cors());
 
 const server = http.createServer(app);
 
+const isProduction = process.env.NODE_ENV === "production";
+const socketIoOrigin = isProduction
+  ? "https://your-vercel-app-url" // Replace with your Vercel app URL
+  : "http://localhost:3000"; // Use your development URL
+
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: socketIoOrigin,
     methods: ["GET", "POST"],
   },
 });
@@ -36,6 +41,6 @@ app.use("/", (req, res) => {
   res.json("server working fine!");
 });
 
-server.listen(3001, () => {
+server.listen(process.env.PORT || 3001, () => {
   console.log("SERVER RUNNING");
 });
