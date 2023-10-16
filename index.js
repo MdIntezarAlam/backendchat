@@ -1,26 +1,24 @@
 import express from "express";
-const app = express();
 import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
-require("dotenv").config();
 
+// Initialize Express app
+const app = express();
 app.use(cors());
 
+// Create an HTTP server using Express app
 const server = http.createServer(app);
 
-const isProduction = process.env.NODE_ENV === "production";
-const socketIoOrigin = isProduction
-  ? process.env.SOCKET_IO_URL
-  : "http://localhost:3000"; // Use your development URL
-
+// Initialize Socket.io server
 const io = new Server(server, {
   cors: {
-    origin: socketIoOrigin,
+    origin: process.env.SOCKET_IO_URL,
     methods: ["GET", "POST"],
   },
 });
 
+// Socket.io event handlers
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
@@ -38,10 +36,13 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use("/", (req, res) => {
-  res.json("server working fine!");
+// Define a basic route for testing
+app.get("/", (req, res) => {
+  res.json("Server is working fine!");
 });
 
-server.listen(process.env.PORT || 3001, () => {
-  console.log("SERVER RUNNING");
+// Start the server
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
