@@ -13,6 +13,6 @@
     }
   ],
   "env": {
-    "SOCKET_IO_URL": "@socket.io.url"
+    "SOCKET_IO_URL": "*"
   }
 }

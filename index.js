@@ -3,28 +3,25 @@ import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
 
-// Initialize Express app
 const app = express();
 app.use(cors());
 
-// Create an HTTP server using Express app
 const server = http.createServer(app);
 
-// Initialize Socket.io server
 const io = new Server(server, {
   cors: {
-    origin: process.env.SOCKET_IO_URL,
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
 
 // Socket.io event handlers
 io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`);
+  //  console.log(`User Connected: ${socket.id}`);
 
   socket.on("join_room", (data) => {
     socket.join(data);
-    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+    //   console.log(`User with ID: ${socket.id} joined room: ${data}`);
   });
 
   socket.on("send_message", (data) => {
