@@ -11,8 +11,5 @@
       "src": "/socket.io",
       "dest": "backend/index.js"
     }
-  ],
-  "env": {
-    "SOCKET_IO_URL": "*"
-  }
+  ]
 }
